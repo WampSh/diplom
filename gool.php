@@ -27,14 +27,9 @@
       background-color: gray;
       border-radius: 50%;
       transition: all 0.5s cubic-bezier(.17,.67,.83,.67);
-      /*transition: left 5s cubic-bezier(.17,.67,.83,.67), top 5s cubic-bezier(.17,.67,.83,.67);*/
       z-index: 1;
     }
-   /* #bollone:active {
-      left: 600px;
-      top: 100px; 
-    }*/
-    
+   
     .boll {
       display: inline-block;
       position: absolute;
@@ -47,29 +42,10 @@
       z-index: 10;
     }
     
-    /*.top {
-      position: absolute;
-      width: 80px;
-      height: 40px;
-      left: 0;
-      top: -40px;
-      background-color: gray;}
-      
-    .top:after {
-      content: "";
-      position: absolute;
-      width: 80px;
-      height: 40px;
-      left: 0;
-      top: 120px;
-      background-color: gray;}
-      
-    .boll:active:before {
-      left: 1000px;
-    }  */
-    
   </style>
 </head>
+
+
 <body>
   
   <div class="ring"></div>
@@ -83,14 +59,11 @@
   <script>
     "use strict";
     let coursorPosition;
-    /*let bollPosition = bollone.getBoundingClientRect();
-    let bollX = bollPosition.left + 80;
-    let bollY = bollPosition.top + 80;*/
-    /*console.log(bollX + " " + bollY);*/
+    
     bollone.addEventListener("mousedown", function(event) {
       console.log(event.clientX + " " + event.clientY);
       let bollPosition = bollone.getBoundingClientRect();
-      let bollX = bollPosition.left; /*+ 80;*/
+      let bollX = bollPosition.left; /*Положение мяча*/
       console.log("boll x =" + bollX);
       let bollY = bollPosition.top;  /*+ 80;*/
       console.log("boll Y =" + bollY);
