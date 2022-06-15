@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Футбол</title>
+  <style>
+    body {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 0;
+    height: plateSizeXpx;
+    width: 1250px;
+    
+    }
+    
+    .schet {
+      height: 50px;
+      background-color: rgb(21, 92, 11);
+    }
+    
+    .plate {
+      z-index: 0;
+    }
+    
+    .vorotal {
+      display: block;
+      position: absolute;
+      left: 5px;
+      top: 340px;
+      z-index: 70;
+    }
+
+    .vorotal img {
+      height: 220px;
+      width: 100px;
+    }
+
+     #bollone {
+      /*content: "";*/
+      display: block;
+      position: absolute;
+      padding: 80px;
+      left: 550px;
+      top: 370px;
+      /* background-color: white; */
+      border-radius: 50%;
+      transition: all 0s ease-out;
+      z-index: 0;
+      cursor: pointer;
+    }
+   
+    .boll {
+      display: inline-block;
+      position: absolute;
+      top: 50px;
+      left: 50px;  
+      /*padding: 40px;
+      background-color: blue;*/
+      border-radius: 50%;
+      /* transition: left ease plateSizeXms; */
+      z-index: 50;
+    }
+    
+  </style>
+</head>
+
+
+<body>
+  <header class="head">
+    <div class="schet"></div>
+  </header>
+  <img class="plate" src="./img/footbolplate.jpeg" width="1250px" height="800px" alt="">
+  
+  <div class="vorotal"><img src="./img/vorotal.png" alt=""></div>
+  
+  <div id="bollone" class="bollaura">
+    <div class="boll"><img src="./img/ball.svg" width="60px" height="60px" alt="">
+    
+    </div>
+  </div>
+  
+  <script>
+    "use strict";
+    let coursorPosition;
+    let moveToX, moveToY;
+    let bollX, bollY, clickX, clickY, force, nextX, nextY, lengthFly;
+    let plateSizeY = 740, plateSizeX = 1120; // Размер поля
+    let forceCoef = 6; // Коэффицент силы удара, чем меньше, тем дальше летит мяч 
+    let ballFlyTime = 600; // Коэффицент скорости мяча, чем больше, тем быстрее летит мяч
+    let leftBorder = 0;
+    let rightBorder = plateSizeX;
+    let topBorder = 0;
+    let downBorder = plateSizeY;
+    let flagEndTrans = 1;
+    
+    bollone.addEventListener("transitionend", function(){flagEndTrans = 1});
+    bollone.addEventListener("click", moveBoll); 
+    
+   
+
+   
+    function moveBoll(event) {
+      let bollPosition = bollone.getBoundingClientRect();
+      bollX = bollPosition.left; /* Положение мяча по Х*/
+      bollY = bollPosition.top;  /* Положение мяча по У*/
+      clickX = event.clientX - 80;  /* Положение клика по Х*/
+      clickY = event.clientY - 80;  /* Положение клика по У*/
+
+
+      force = (Math.sqrt(((bollX - clickX) **2 + (bollY - clickY) **2)))/forceCoef; /* Вычисляем силу удара в зависимости от удаления клика от центра */
+      moveToX = ((bollX - clickX) *force + bollX); /* куда лететь по Х*/
+      moveToY = ((bollY - clickY) *force + bollY);  /* куда лететь по У*/
+      
+      screenControl(moveToX, moveToY); 
+    }; 
+    
+    function screenControl(posX, posY) {
+
+      
+    if (posX < leftBorder){                   // Если по Х улетает за экран слева
+        if ((posX + bollX) <= (posY + bollY)){  // Если сперва надо лететь на Х 
+          //nextX = moveToX;
+          //nextY = moveToY;
+          moveToX = leftBorder;
+          moveToY = newCalcFuncY(leftBorder, bollX, bollY, posX, posY);
+          goMove();
+          posX = Math.abs(posX);
+          if (posY < topBorder) {               // Если после отскока летит выше экрана
+              moveToX = newCalcFuncX( topBorder, moveToX, moveToY, posX, posY);
+              moveToY = topBorder;
+              goMove(); 
+              moveToX = posX;
+              moveToY = Math.abs(posY);
+              goMove();
+          } else if ( posY > downBorder) {      // Если после отскока летит ниже экрана
+              moveToX = newCalcFuncX( downBorder, moveToX, moveToY, posX, posY);
+              moveToY = downBorder;
+              goMove();
+              moveToX = posX;
+              moveToY = downBorder - (posY - downBorder);
+          }
+        } else {                               // Если надо сперва лететь на У
+          if (posY < topBorder) {               // Если после отскока летит выше экрана
+              moveToX = newCalcFuncX( topBorder, bollX, bollX, posX, posY);
+              moveToY = topBorder;
+              posY = Math.abs(posY);
+              goMove(); 
+              moveToY = newCalcFuncY(leftBorder, moveToX, moveToY, posX, posY)
+              moveToX = leftBorder;
+              goMove();
+              moveToX = Math.abs(posX);
+              moveToY = posY;
+              goMove();             
+          } else if ( posY > downBorder) {      // Если после отскока летит ниже экрана
+              moveToX = newCalcFuncX( downBorder, bollX, bollX, posX, posY);
+              moveToY = downBorder;
+              posY = Math.abs(posY);
+              goMove();
+              
+
+
+
+          
+
+          } else if ( posY > downBorder) {      // Если после отскока летит ниже экрана
+              moveToX = newCalcFuncX( downBorder, moveToX, moveToY, posX, posY);
+              moveToY = downBorder;
+              goMove(); 
+              moveToX = posX;
+              moveToY = downBorder - (posY - downBorder);
+          }
+
+
+        }
+    } else if (posX > rightBorder) {          // Если по Х улетает за экран справа
+          moveToX = rightBorder;
+          moveToY = newCalcFuncY(moveToX, bollX, bollY, posX, posY);
+          goMove();
+          posX = rightBorder - (posX - rightBorder);
+          if (posY < topBorder) {               // Если после отскока летит выше экрана
+              moveToX = newCalcFuncX( topBorder, moveToX, moveToY, posX, posY);
+              moveToY = topBorder;
+              goMove(); 
+              moveToX = posX;
+              moveToY = Math.abs(posY);
+              goMove(); 
+          } else if (posY > downBorder)         // Если после отскока летит ниже экрана
+              moveToX = newCalcFuncX( downBorder, moveToX, moveToY, posX, posY);
+              moveToY = downBorder;
+              goMove(); 
+              moveToX = posX;
+              moveToY = downBorder - (posY - downBorder);
+        }
+      
+      moveToX = posX;                           // Куда лететь после всех отскоков
+      moveToY = posY;
+      goMove();
+
+
+
+
+
+
+
+
+
+      // if (posX < 0 && posY > 0 && posY < plateSizeY ){
+      //   nextX = Math.abs(moveToX);
+      //   nextY = moveToY;
+      //   moveToX = 0;
+      //   moveToY = calcFuncX(moveToX);
+      // }
+      // if (posY < 0 && posX > 0 && posX < plateSizeX ) {         
+      //   nextY = Math.abs(moveToY);
+      //   nextX = moveToX;
+      //   moveToY = 0;
+      //   moveToX = calcFuncY(moveToY);
+      // }
+      // if (posX > plateSizeX && posY < plateSizeY && posY > 0){
+      //   nextX = plateSizeX - (moveToX - plateSizeX);
+      //   nextY = moveToY;
+      //   moveToX = plateSizeX;
+      //   moveToY = calcFuncX(moveToX);
+      // }
+      // if (posY > plateSizeY && posX < plateSizeX && posX > 0) {         
+      //   nextY = plateSizeY - (moveToY - plateSizeY);
+      //   nextX = moveToX;
+      //   moveToY = plateSizeY;
+      //   moveToX = calcFuncY(moveToY);
+      // }
+      // if (posX < 0 && posY < 0 ){
+      //   // nextX = Math.abs(moveToX);
+      //   // nextY = moveToY;
+      //   // moveToX = 0;
+      //   // moveToY = calcFuncX(moveToX);
+      // }
+      // if (posY < 0 && posX > plateSizeX ){
+      //   // nextX = Math.abs(moveToX);
+      //   // nextY = moveToY;
+      //   // moveToX = 0;
+      //   // moveToY = calcFuncX(moveToX);
+      // }
+
+      
+            
+      // if (moveToX == 0 || moveToX == plateSizeX || moveToY == 0 || moveToY == plateSizeY) {
+      //   moveToX = nextX;
+      //   moveToY = nextY;
+      //   bollone.addEventListener("transitionend", goMove, false); 
+      // }  
+    }  
+    
+    function goMove() {
+      if (flagEndTrans == 1) {
+          lengthFly = Math.sqrt(((bollX - moveToX) **2 + (bollY - moveToY) **2));
+          bollone.style.transitionDuration = lengthFly/ballFlyTime + "s";
+          if (moveToX == leftBorder || moveToY == topBorder || moveToX == rightBorder|| moveToY == downBorder) {
+            bollone.style.transitionTimingFunction = "linear";
+            } else {bollone.style.transitionTimingFunction = "ease-out";}
+          flagEndTrans = 0;  
+          bollone.style.left = moveToX +"px";
+          bollone.style.top = moveToY +"px";
+          
+      } else goMove();
+      
+                
+    }
+    
+    
+      // Расчет траектории полета, высчитываем позицию У при Х = 0 или plateSizeX
+    function calcFuncX (x){
+      let k = (bollY - clickY) / (bollX - clickX);
+      let b = clickY -k * clickX;
+      let y = k * x + b;
+      return y;
+    }
+    
+    function calcFuncY (y){
+      let k = (bollY - clickY) / (bollX - clickX);
+      let b = clickY -k * clickX;
+      let x = (y - b) / k;
+      return x;
+    }
+
+    function newCalcFuncY (x, firstX, firstY, secondX, secondY){
+      let k = (firstY - secondY) / (firstX - secondX);
+      let b = secondY - k * secondX;
+      let y = k * x + b;
+      return y;
+    }
+
+    function newCalcFuncX (y, firstX, firstY, secondX, secondY){
+      let k = (firstY - secondY) / (firstX - secondX);
+      let b = secondY - k * secondX;
+      let x = (y - b) / k;
+      return x;
+    }
+    
+    
+        
+  </script>
+  </body>
+</html>

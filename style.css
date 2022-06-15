@@ -1,0 +1,165 @@
+body {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 0;
+  background-color: rgb(21, 92, 11);
+  background-image: url(img/backgr.jpg);
+  background-repeat: repeat;
+}
+.plate {
+  z-index: 0;
+  width: 100%;
+  height: calc(100%-63px);
+}
+.vorotal {
+  display: block;
+  position: absolute;
+  left: 5px;
+  top: 360px;
+  z-index: 80;
+}
+.vorotal img, .vorotar img {
+  height: 210px;
+  width: 100px;
+}
+.vorotar {
+  display: block;
+  position: absolute;
+  left: 1155px;
+  top: 360px;
+  z-index: 80;
+}
+.bollone {
+  z-index: 70;
+  border-color: black;
+  display: block;
+  position: absolute;
+  padding: 80px;
+  left: 560px;
+  top: 390px;
+  border-radius: 50%;
+  cursor: url(img/kross.png), auto;
+}
+.boll {
+  display: inline-block;
+  position: absolute;
+  top: 55px;
+  left: 55px;  
+  border-radius: 50%;
+  z-index: 50;
+}
+.startModal {
+  z-index: 500;
+  height: 400px;
+  width: 500px;
+  background-color: lightblue;
+  position: absolute;
+  padding: 20px;
+  top: calc(50% - 300px);
+  left: calc(50% - 250px);
+  text-align: center;
+  border: 2px solid lightblue;
+  border-radius: 1em;
+  box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 1);
+}
+.bl {
+  display: block;
+  text-align: left;
+  line-height: 1.5em;
+}
+.regprig, .inprig {
+  text-decoration: underline;
+  color: blue; 
+  z-index: 70;
+  cursor: pointer;     
+}
+.formClass {
+  align-self: center;
+  padding: 0px, 30px;
+}
+.hide {
+  display: none;
+}
+.down {
+  position: absolute; 
+  bottom: 5px;
+  margin: 5px;
+  align-self: auto;
+}
+.schet {
+  height: 63px;
+  position: absolute;
+  display: block;
+  left: 547px;
+}
+.alert {
+  color: red;
+  padding: 0px;
+}
+.navbar {
+  height: 63px;
+  padding: 0;
+  justify-content: flex-end;
+}
+.username, .compname, .clock {
+  position: absolute;
+  display: inline-block;
+  font-size: 30px;
+  color: white;
+  width: 500px;
+}
+.username {
+  left: 10px;
+  text-align: right;
+}
+.compname {
+  left: 750px; 
+}
+.clock {
+  left: 10px;
+}
+.compMan{
+  position: absolute;
+  left: 70px;
+  top: 400px;
+  z-index: 500;
+}
+.aboutText{
+  padding: 1.4em;
+  color: black;
+  text-align: center;
+  font-size: 1.5em;
+  text-shadow: 1px 1px 1px white;
+}
+.startText{
+  padding: 0.8em;
+  color: black;
+  text-align: center;
+  font-size: 1.2em;
+  text-shadow: 1px 1px 1px white;
+}
+
+.end {
+  margin: 0.8em;
+  height: 200px;
+}
+.start {
+  z-index: 100;
+}
+.goool {
+  z-index: 500;
+  height: 60px;
+  width: 200px;
+  background-color: lightblue;
+  position: absolute;
+  padding: 10px;
+  top: calc(50% - 300px);
+  left: calc(50% - 100px);
+  text-align: center;
+  font-size: 1.5em;
+  text-shadow: 1px 1px 1px white;
+  border: 2px solid lightblue;
+  border-radius: 0.8em;
+  box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 1);
+} 
