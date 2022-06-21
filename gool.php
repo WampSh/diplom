@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 header('Content-Type: text/html; charset=utf-8');
 ?>
@@ -12,11 +12,11 @@ header('Content-Type: text/html; charset=utf-8');
 </head>
 
 <body>
-  <?
-  if (!isset($_SESSION['id'])): 
-   require_once("components/reg.php"); 
-   endif;
-  ?>
+<?php
+  if (!isset($_SESSION['id'])):
+    require_once("components/reg.php"); 
+    endif;
+?>
   <header class="head">
     <nav class="navbar navbar-expand-lx navbar-light bg-success">
       <div class="clock"></div>
@@ -36,8 +36,8 @@ header('Content-Type: text/html; charset=utf-8');
     </nav>
   </header>
   <main class="main">
-   <div class="flexdiv"></div>
-    <div><img class="plate" src="./img/footbolplate.jpeg" alt=""></div>
+   <!-- <div class="flexdiv"></div> -->
+    <div class="fullplate"><img class="plate" src="./img/footbolplate.jpeg" alt=""></div>
     <div class="vorotal"><img src="./img/vorotal.png" alt=""></div>
     <div class="vorotar"><img src="./img/vorotar.png" alt=""></div>
     <div class="bollone">

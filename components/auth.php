@@ -9,7 +9,7 @@
   if (empty($nick) || empty($password)) exit("empty");
   if ($reg == "on" && $password != $secpassword) exit("noequil");
   require_once("db.php");
-  if ($reg == off){
+  if ($reg == "off"){
   $result = $mysqli -> query("SELECT * FROM `players` WHERE `nick`= '$nick'") -> fetch_assoc();
     if (isset($result) && password_verify($password, $result["password"])) {
       $_SESSION['id'] = $result['id'];

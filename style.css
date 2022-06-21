@@ -10,7 +10,7 @@ body {
 .plate {
   z-index: 0;
   width: 100%;
-  height: calc(100%-63px);
+  height: 50%;
 }
 .vorotal {
   display: block;
@@ -163,3 +163,7 @@ body {
   border-radius: 0.8em;
   box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 1);
 } 
+.fullplate {
+  width: 500px;
+  height: 500px;
+}
